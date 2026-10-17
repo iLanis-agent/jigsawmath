@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jigsaw Math - app</title>
+<style>
+  :root { --accent:#6b3f7a; --ink:#2a2330; --paper:#f6f3f8; --soft:#ece5f0; }
+  * { box-sizing:border-box; margin:0; }
+  body { font-family:Georgia, 'Times New Roman', serif; background:var(--paper); color:var(--ink); line-height:1.55; padding:2rem 1.2rem; }
+  main { max-width:660px; margin:0 auto; }
+  h1 { font-size:1.8rem; color:var(--accent); }
+  .boundary { background:#fdeaea; border-left:6px solid #b03030; color:#5c1c1c; border-radius:6px; padding:1rem 1.1rem; margin:1rem 0 1.4rem; }
+  .boundary strong { display:block; margin-bottom:.3rem; }
+  .panel { background:var(--soft); border-left:5px solid var(--accent); border-radius:6px; padding:1rem 1.1rem; margin-bottom:1.1rem; }
+  h2 { font-size:1.1rem; margin-bottom:.6rem; }
+  p.note { font-size:.9rem; margin-bottom:.4rem; }
+  label { display:block; font-size:.9rem; margin:.45rem 0 .1rem; }
+  input { width:100%; padding:.45rem .55rem; font-size:1rem; border:1px solid #d5c9de; border-radius:6px; background:#fff; color:var(--ink); }
+  .out { margin-top:.7rem; font-size:.98rem; background:#fff; border:1px dashed #d5c9de; border-radius:6px; padding:.6rem .7rem; min-height:2.4rem; }
+  .out.err { border-color:#b03030; color:#8a1f1f; font-style:normal; }
+  footer { margin-top:1.8rem; font-size:.85rem; color:#6a6070; }
+  a { color:var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Jigsaw Math</h1>
+  <div class="boundary">
+    <strong>Boundary: counting arithmetic only</strong>
+    This page counts pieces, borders, and minutes. It never judges your 9 PM decisions.
+  </div>
+
+  <div class="panel">
+    <h2>The grid truth</h2>
+    <p class="note">What the piece count really cuts into.</p>
+    <label for="g-pieces">Pieces in the box</label>
+    <input id="g-pieces" type="number" min="1" step="1" value="1000">
+    <div class="out" id="g-out"></div>
+  </div>
+
+  <div class="panel">
+    <h2>The border truth</h2>
+    <p class="note">The easy first hour, measured.</p>
+    <label for="b-w">Grid width (pieces)</label>
+    <input id="b-w" type="number" min="2" step="1" value="40">
+    <label for="b-h">Grid height (pieces)</label>
+    <input id="b-h" type="number" min="2" step="1" value="25">
+    <div class="out" id="b-out"></div>
+  </div>
+
+  <div class="panel">
+    <h2>The time truth</h2>
+    <p class="note">The evening, itemized.</p>
+    <label for="t-pieces">Pieces in the box</label>
+    <input id="t-pieces" type="number" min="1" step="1" value="1000">
+    <label for="t-rate">Your pace (pieces a minute)</label>
+    <input id="t-rate" type="number" min="0" step="0.5" value="4">
+    <div class="out" id="t-out"></div>
+  </div>
+
+  <footer>Jigsaw Math is exact arithmetic over the piece count and your own pace. <a href="index.html">Why it exists</a>.</footer>
+</main>
+<script src="engine.js"></script>
+<script>
+  const num = (id) => Number(document.getElementById(id).value);
+  function show(out, fn) {
+    try {
+      const text = fn();
+      out.textContent = text;
+      out.classList.remove("err");
+    } catch (e) {
+      out.textContent = e.message;
+      out.classList.add("err");
+    }
+  }
+  const gOut = document.getElementById("g-out");
+  const bOut = document.getElementById("b-out");
+  const tOut = document.getElementById("t-out");
+  function recalc() {
+    show(gOut, () => gridTruth(num("g-pieces")));
+    show(bOut, () => borderTruth(num("b-w"), num("b-h")));
+    show(tOut, () => timeTruth(num("t-pieces"), num("t-rate")));
+  }
+  document.querySelectorAll("input").forEach((el) => {
+    el.addEventListener("input", recalc);
+    el.addEventListener("change", recalc);
+  });
+  recalc();
+</script>
+</body>
+</html>
