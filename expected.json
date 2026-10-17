@@ -1,0 +1,108 @@
+[
+  {
+    "fn": "gridTruth",
+    "args": [
+      1000
+    ],
+    "expected": "1,000 pieces cut 40 by 25."
+  },
+  {
+    "fn": "gridTruth",
+    "args": [
+      500
+    ],
+    "expected": "500 pieces cut 25 by 20."
+  },
+  {
+    "fn": "gridTruth",
+    "args": [
+      509
+    ],
+    "expected": "509 is prime - no grid cuts evenly, so the box is making it up."
+  },
+  {
+    "fn": "gridTruth",
+    "args": [
+      513
+    ],
+    "expected": "513 pieces cut 27 by 19."
+  },
+  {
+    "fn": "gridTruth",
+    "args": [
+      0
+    ],
+    "expected": "ERR:count at least 1 piece"
+  },
+  {
+    "fn": "gridTruth",
+    "args": [
+      999.5
+    ],
+    "expected": "ERR:pieces come whole"
+  },
+  {
+    "fn": "borderTruth",
+    "args": [
+      40,
+      25
+    ],
+    "expected": "126 border pieces, 874 middle - the border is 12.6% of the puzzle."
+  },
+  {
+    "fn": "borderTruth",
+    "args": [
+      2,
+      2
+    ],
+    "expected": "4 border pieces, 0 middle - the border is 100% of the puzzle."
+  },
+  {
+    "fn": "borderTruth",
+    "args": [
+      1,
+      5
+    ],
+    "expected": "ERR:a grid needs at least 2 by 2"
+  },
+  {
+    "fn": "timeTruth",
+    "args": [
+      1000,
+      4
+    ],
+    "expected": "1,000 pieces at 4 a minute is 250 minutes - 4 hours 10 minutes."
+  },
+  {
+    "fn": "timeTruth",
+    "args": [
+      90,
+      2
+    ],
+    "expected": "90 pieces at 2 a minute is 45 minutes."
+  },
+  {
+    "fn": "timeTruth",
+    "args": [
+      120,
+      2
+    ],
+    "expected": "120 pieces at 2 a minute is 60 minutes - 1 hour."
+  },
+  {
+    "fn": "timeTruth",
+    "args": [
+      300,
+      1.5
+    ],
+    "expected": "300 pieces at 1.5 a minute is 200 minutes - 3 hours 20 minutes."
+  },
+  {
+    "fn": "timeTruth",
+    "args": [
+      1000,
+      0
+    ],
+    "expected": "ERR:pieces a minute must be more than 0"
+  }
+]
